@@ -311,13 +311,11 @@ module Xdrgen
 
         out.puts <<-EOS.strip_heredoc
         // === xdr source ============================================================
-
         EOS
 
         out.puts "//  " + defn.text_value.split("\n").join("\n//  ")
 
         out.puts <<-EOS.strip_heredoc
-
         //  ===========================================================================
         EOS
       end

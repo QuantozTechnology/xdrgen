@@ -201,9 +201,7 @@ namespace <%= @namespace %>
 		
 		public static string ReadString(IByteReader r)
         {
-            int l = DecodeInt32(r);
-
-            return Encoding.ASCII.GetString(ReadVarOpaque(r, (uint)l));
+            return Encoding.ASCII.GetString(ReadVarOpaque(r, uint.MaxValue));
         }
 		
         public static void WriteFixOpaque(IByteWriter w, uint len, byte[] v)
