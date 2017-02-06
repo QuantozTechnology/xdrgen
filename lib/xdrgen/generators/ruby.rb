@@ -1,5 +1,6 @@
 module Xdrgen
   module Generators
+    include ActiveSupport::Inflector
 
     class Ruby < Xdrgen::Generators::Base
 
@@ -30,7 +31,7 @@ module Xdrgen
           when AST::Definitions::Struct,
                AST::Definitions::Union,
                AST::Definitions::Enum ;
-            render_autoload(out, member)
+            render_require(out, member)
           end
         end
       end
@@ -44,6 +45,10 @@ module Xdrgen
           out.unbreak
         end
         out.puts "end"
+      end
+
+      def render_require(out, named)
+        out.puts "require_relative #{dir_name_string named.name.underscore}"
       end
 
       def render_autoload(out, named)
@@ -143,7 +148,6 @@ module Xdrgen
         ndefn = parent.nested_definitions
         return if ndefn.empty?
         ndefn.each(&method(:render_definition))
-
         out.puts "include XDR::Namespace"
         out.break
         ndefn.each{|ndefn| render_autoload out, ndefn}
@@ -276,6 +280,10 @@ module Xdrgen
 
       def name_string(name)
         name.camelize
+      end
+
+      def dir_name_string(name)
+        "'./stellar/" + name.underscore + "'"
       end
 
     end

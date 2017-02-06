@@ -34,6 +34,12 @@ The command line:
 
 `xdrgen [-o OUTPUT_DIR] [-l LANGUAGE] [-n NAMESPACE] [INPUT_FILES ...]`
 
+## Exceptions in functinality
+
+As "autoload" has been deprecated by Ruby, it is replaced for require, but it is
+possible that dependencies are not correctly loaded. This can possibly be fixed by
+reordering some requires in the `*_generated` file.
+
 ## Usage as a library
 
 Add this line to your application's Gemfile:
